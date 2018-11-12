@@ -1,7 +1,14 @@
-/**
- * Implement Gatsby's Browser APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/browser-apis/
- */
+exports.onClientEntry = () => {
 
- // You can delete this file if you're not using it
+  if (typeof window.IntersectionObserver === `undefined`) {
+    require(`intersection-observer`)
+  }
+
+  const testImg = document.createElement(`img`)
+  if (
+    typeof testImg.style.objectFit === `undefined` ||
+    typeof testImg.style.objectPosition === `undefined`
+  ) {
+    require(`object-fit-images`)()
+  }
+}

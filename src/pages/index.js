@@ -1,14 +1,27 @@
 import React from 'react'
-import Link from 'gatsby-link'
-import { Container, Row, Grid, Inner} from '../components/responsive/'
+import { graphql } from 'gatsby'
+import Img from "gatsby-image"
 
-class Index extends React.Component {
-  render(props) {
-    return (
-      <div>Hello gatsby
-      </div>
-    )
+export default props => <div>
+  <div>{props.data.hoge.hello} {props.data.hoge.gatsby} {props.data.fuga.starter}</div>
+  <Img fixed={props.data.file.childImageSharp.fixed} />
+</div>
+
+export const news = graphql`
+  query {
+    hoge{
+      hello
+      gatsby
+    }
+    fuga{
+      starter
+    }
+    file(relativePath:{eq:"image/sample.jpg"}){
+      childImageSharp {
+        fixed(width: 200, quality: 90) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
   }
-}
-
-export default Index
+`
